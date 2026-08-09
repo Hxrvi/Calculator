@@ -230,7 +230,6 @@ class MainActivity : AppCompatActivity() {
 
         val currentText = resultTextView.text.toString()
 
-        // Prevent multiple decimal points
         if (number == "." && currentText.contains(".")) {
             return
         }
