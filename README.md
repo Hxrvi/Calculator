@@ -1,109 +1,158 @@
 # Calculator
 
-A modern Android Calculator built with **Kotlin** and **XML** following Material Design principles.
-
-> A lightweight, fast, and beautiful calculator focused on a smooth user experience.
+A modern Android calculator built with **Kotlin** and **XML**, designed with a clean interface and practical calculator functionality.
 
 ---
 
 ## 📸 Preview
 
-> <img width="878" height="1571" alt="image" src="https://github.com/user-attachments/assets/3a1b3906-b28d-4377-aec7-d85e7db3a5e1" />
-
+<img width="1075" height="1610" alt="image" src="https://github.com/user-attachments/assets/fec209f8-3ead-4ea7-aa6d-976b315c390b" />
 
 ---
 
 ## Features
 
-### Current Features
-- [x] Basic arithmetic operations (+, −, ×, ÷)
+### Calculator
+
+- [x] Addition (+)
+- [x] Subtraction (−)
+- [x] Multiplication (×)
+- [x] Division (÷)
+- [x] Modulo (%)
 - [x] Decimal number support
-- [x] Clear (C) button
-- [x] Delete (⌫) button
-- [x] Responsive button layout
-- [x] Material Design UI
-- [x] Smooth button animations
+- [x] Automatic decimal formatting
+- [x] Division-by-zero protection
+- [x] Decimal-point validation
+- [x] Input length protection
+- [x] Clear calculator
+- [x] Backspace / delete
+- [x] Long-press backspace to clear
+- [x] Previous calculation display
+
+### User Experience
+
+- [x] Haptic feedback on button press
+- [x] Long-press haptic feedback
+- [x] Responsive calculator layout
+- [x] Material Design interface
+- [x] Button animations
+- [x] Edge-to-edge display
 
 ---
 
 ## Planned Features
 
-### User Experience
-- [ ] Automatic Dark / Light Mode (Follow System Theme)
-- [ ] Button vibration (Haptic Feedback)
-- [ ] Landscape mode support
-- [ ] Dynamic color (Material You)
-- [ ] Beautiful splash screen
-- [ ] Edge-to-edge display
-- [ ] Better animations
+### Calculator
 
-### Calculator Features
-- [ ] Percentage (%)
 - [ ] Plus/Minus (+/-)
-- [ ] Memory functions (M+, M-, MR, MC)
 - [ ] Calculation history
 - [ ] Copy result
 - [ ] Paste number
-- [ ] Scientific Calculator Mode
-- [ ] Currency Calculator
-- [ ] Unit Converter
+- [ ] Memory functions (M+, M-, MR, MC)
+- [ ] Scientific calculator mode
+- [ ] Unit converter
+- [ ] Currency calculator
 
-### Customization
-- [ ] Theme settings
-- [ ] Button customization
+### Appearance
+
+- [ ] Automatic Dark / Light Mode
+- [ ] Dynamic color support (Material You)
+- [ ] Custom accent colors
 - [ ] Font size settings
-- [ ] Accent color selection
+- [ ] Button customization
+- [ ] Improved animations
+- [ ] Custom splash screen
 
 ### Accessibility
+
 - [ ] TalkBack support
+- [ ] Improved accessibility labels
 - [ ] Larger text support
-- [ ] Better accessibility labels
-- [ ] High contrast mode
+- [ ] High contrast support
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
-- Kotlin
-- XML
-- Android Studio
-- Material Components
+- **Kotlin** — Application logic
+- **XML** — User interface
+- **Android SDK** — Android platform APIs
+- **Material Components** — UI components and design
+- **Gradle Kotlin DSL** — Build configuration
+- **Android Studio** — Development environment
 
 ---
 
 ## Project Structure
 
-```
+```text
 Calculator/
 │
 ├── app/
+│   └── src/
+│       └── main/
+│           ├── java/
+│           │   └── com/example/calculater/
+│           │       └── MainActivity.kt
+│           │
+│           ├── res/
+│           │   ├── drawable/
+│           │   ├── layout/
+│           │   │   └── activity_main.xml
+│           │   └── values/
+│           │       └── colors.xml
+│           │
+│           └── AndroidManifest.xml
+│
 ├── gradle/
 ├── build.gradle.kts
 ├── settings.gradle.kts
+├── gradle.properties
 └── README.md
 ```
 
----
-
 ## Roadmap
 
-### Version 1.0
+### Version 1.0 — Core Calculator
+
 - [x] Basic Calculator
+- [x] Addition (+)
+- [x] Subtraction (−)
+- [x] Multiplication (×)
+- [x] Division (÷)
+- [x] Percentage / Modulo (%)
+- [x] Decimal support
+- [x] Clear button
+- [x] Backspace button
+- [x] Division-by-zero protection
+- [x] Input validation
+- [x] Number formatting
 
-### Version 1.1
-- [ ] Dark Mode
-- [ ] Haptic Feedback
-- [ ] Better UI
+### Version 1.1 — User Experience
 
-### Version 1.2
-- [ ] History
+- [x] Haptic Feedback
+- [x] Long-press backspace to clear
+- [x] Better UI
+- [x] Edge-to-edge display
+- [ ] Dark / Light Mode based on system theme
+- [ ] Improved animations
+- [ ] Dynamic color / Material You
+
+### Version 1.2 — Productivity
+
+- [ ] Calculation History
 - [ ] Memory Buttons
 - [ ] Copy Result
+- [ ] Paste Number
 
-### Version 2.0
+### Version 2.0 — Advanced Calculator
+
 - [ ] Scientific Calculator
 - [ ] Unit Converter
+- [ ] Currency Calculator
 - [ ] Material You Design
+- [ ] Advanced Customization
+- [ ] Accessibility Improvements
 
 ---
 
@@ -116,7 +165,9 @@ If you'd like to contribute:
 1. Fork the repository
 2. Create a new branch
 3. Make your changes
-4. Open a Pull Request
+4. Commit your changes
+5. Push the branch
+6. Open a Pull Request
 
 ---
 
@@ -126,4 +177,4 @@ This project is licensed under the MIT License.
 
 ---
 
-Developed using Kotlin and Android SDK.
+Built with **Kotlin** and the **Android SDK**.
