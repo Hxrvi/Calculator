@@ -62,7 +62,7 @@
             android:columnCount="4"
             android:rowCount="5"
             android:background="@color/displayBg"
-            android:padding="10dp">
+            android:padding="16dp">
 
             <!--Row 1-->
 
@@ -74,6 +74,7 @@
                 android:layout_column="0"
                 android:layout_columnWeight="1"
                 android:background="@drawable/button_clear_background"
+                android:textColor="@color/red"
                 android:text="C" />
 
             <Button android:id="@+id/btnBackspace"
@@ -81,6 +82,7 @@
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
                 android:text="⌫"
+                android:textColor="@color/red"
                 android:background="@drawable/button_operator_background"/>
 
             <Button android:id="@+id/btnPercent"

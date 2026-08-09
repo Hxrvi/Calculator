@@ -6,8 +6,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import android.view.HapticFeedbackConstants
+import android.view.View
+import java.text.DecimalFormat
 
 class MainActivity : AppCompatActivity() {
     private lateinit var resultTextView: TextView
@@ -16,6 +17,9 @@ class MainActivity : AppCompatActivity() {
     private var firstNumber: Double = 0.0
     private var operator: String = ""
     private var isNewOperation: Boolean = true
+
+    private val decimalFormat = DecimalFormat("#.##########")
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,44 +56,132 @@ class MainActivity : AppCompatActivity() {
         val btnBackspace: Button = findViewById(R.id.btnBackspace)
 
 
-        btn0.setOnClickListener {appendNumber("0")}
-        btn1.setOnClickListener {appendNumber("1")}
-        btn2.setOnClickListener {appendNumber("2")}
-        btn3.setOnClickListener {appendNumber("3")}
-        btn4.setOnClickListener {appendNumber("4")}
-        btn5.setOnClickListener {appendNumber("5")}
-        btn6.setOnClickListener {appendNumber("6")}
-        btn7.setOnClickListener {appendNumber("7")}
-        btn8.setOnClickListener {appendNumber("8")}
-        btn9.setOnClickListener {appendNumber("9")}
-        btnDot.setOnClickListener {appendNumber(".")}
+        btn0.setOnClickListener {
+            haptic(it)
+            appendNumber("0")
+        }
+        btn1.setOnClickListener {
+            haptic(it)
+            appendNumber("1")
+        }
+        btn2.setOnClickListener {
+            haptic(it)
+            appendNumber("2")
+        }
+        btn3.setOnClickListener {
+            haptic(it)
+            appendNumber("3")
+        }
+        btn4.setOnClickListener {
+            haptic(it)
+            appendNumber("4")
+        }
+        btn5.setOnClickListener {
+            haptic(it)
+            appendNumber("5")
+        }
+        btn6.setOnClickListener {
+            haptic(it)
+            appendNumber("6")
+        }
+        btn7.setOnClickListener {
+            haptic(it)
+            appendNumber("7")
+        }
+        btn8.setOnClickListener {
+            haptic(it)
+            appendNumber("8")
+        }
+        btn9.setOnClickListener {
+            haptic(it)
+            appendNumber("9")
+        }
+        btnDot.setOnClickListener {
+            haptic(it)
+            appendNumber(".")
+        }
 
 
 
-        btnPlus.setOnClickListener {setOperation("+")}
-        btnMinus.setOnClickListener {setOperation("-")}
-        btnMultiply.setOnClickListener {setOperation("*")}
-        btnDivide.setOnClickListener {setOperation("÷")}
-        btnPercent.setOnClickListener {setOperation("%")}
+        btnPlus.setOnClickListener {
+            haptic(it)
+            setOperation("+")
+        }
+        btnMinus.setOnClickListener {
+            haptic(it)
+            setOperation("-")
+        }
+        btnMultiply.setOnClickListener {
+            haptic(it)
+            setOperation("*")
+        }
+        btnDivide.setOnClickListener {
+            haptic(it)
+            setOperation("÷")
+        }
+        btnPercent.setOnClickListener {
+            haptic(it)
+            setOperation("%")
+        }
 
-        btnEqual.setOnClickListener {calculateResult()}
-        btnClear.setOnClickListener {clearCalculator()}
-        btnBackspace.setOnClickListener {backspaceCalculator()}
+        btnEqual.setOnClickListener {
+            haptic(it)
+            calculateResult()
+        }
+        btnClear.setOnClickListener {
+            haptic(it)
+            clearCalculator()
+        }
+        btnBackspace.setOnLongClickListener {
+            it.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
+            clearCalculator()
+            true
+        }
 
     }
 
-    private fun setOperation(operation: String){
-        firstNumber = resultTextView.text.toString().toDouble()
+    private fun haptic(view: View) {
+        view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+    }
+
+
+    private fun formatResult(number: Double): String {
+        return decimalFormat.format(number)
+    }
+
+    private fun setOperation(operation: String) {
+
+        if (resultTextView.text.toString() == "Error") return
+
+        val current = resultTextView.text.toString().toDoubleOrNull() ?: return
+
+        firstNumber = current
         operator = operation
         isNewOperation = true
-        previousCalculationTextView.text = "$firstNumber $operator"
+
+        previousCalculationTextView.text =
+            "${formatResult(firstNumber)} $operator"
     }
 
+    private fun calculateResult() {
 
-    private fun calculateResult(){
+        if (resultTextView.text.toString() == "Error") return
+
+        if (operator.isEmpty()) return
+
         try {
             val secondNumber = resultTextView.text.toString().toDouble()
-            var result = when(operator){
+
+            // Check division by zero
+            if (operator == "÷" && secondNumber == 0.0) {
+                resultTextView.text = "Error"
+                previousCalculationTextView.text =
+                    "${formatResult(firstNumber)} ÷ 0 ="
+                isNewOperation = true
+                return
+            }
+
+            val result = when (operator) {
                 "+" -> firstNumber + secondNumber
                 "-" -> firstNumber - secondNumber
                 "*" -> firstNumber * secondNumber
@@ -98,16 +190,25 @@ class MainActivity : AppCompatActivity() {
                 else -> 0.0
             }
 
-            previousCalculationTextView.text = "$firstNumber $operator $secondNumber="
-            resultTextView.text = result.toString()
+            previousCalculationTextView.text =
+                "${formatResult(firstNumber)} $operator ${formatResult(secondNumber)} ="
+
+            resultTextView.text = formatResult(result)
+            previousCalculationTextView.text =
+                "${formatResult(firstNumber)} $operator ${formatResult(secondNumber)} ="
+
+            firstNumber = result
+            operator = ""
             isNewOperation = true
-        }
-        catch (e: Exception){
+            operator = ""
+            firstNumber = result
+
+        } catch (e: Exception) {
             resultTextView.text = "Error"
         }
     }
 
-    private fun clearCalculator(){
+    private fun clearCalculator() {
         resultTextView.text = "0"
         previousCalculationTextView.text = ""
         isNewOperation = true
@@ -115,24 +216,36 @@ class MainActivity : AppCompatActivity() {
         operator = ""
     }
 
-    private fun backspaceCalculator(){
+    private fun backspaceCalculator() {
         val currentText = resultTextView.text.toString()
-        if(currentText.length > 1){
-            resultTextView.text = currentText.substring(0, currentText.length - 1)
-        }
-        else{
+
+        if (currentText.length > 1) {
+            resultTextView.text = currentText.dropLast(1)
+        } else {
             resultTextView.text = "0"
-            Toast.makeText(this, "Invalid", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun appendNumber(number: String){
-        if(isNewOperation){
-            resultTextView.text = number
+    private fun appendNumber(number: String) {
+
+        val currentText = resultTextView.text.toString()
+
+        // Prevent multiple decimal points
+        if (number == "." && currentText.contains(".")) {
+            return
+        }
+
+        if (currentText.replace(".", "").length >= 16) {
+            return
+        }
+
+        if (isNewOperation) {
+            previousCalculationTextView.text = ""
+            resultTextView.text = if (number == ".") "0." else number
             isNewOperation = false
         }
-        else{
-            resultTextView.text="${resultTextView.text}$number"
+        else {
+            resultTextView.append(number)
         }
     }
 }
